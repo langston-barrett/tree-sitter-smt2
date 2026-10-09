@@ -38,17 +38,3 @@ jobs:
     - run: npm test
     - run: cargo test
 
-  scanner:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      with:
-        persist-credentials: false
-    - name: Compile the scanner with warnings as errors
-      run: |
-        for cc in gcc clang; do
-          "${cc}" --version | head -n 1
-          "${cc}" -std=c11 -Isrc -c src/scanner.c -o /dev/null \
-            -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror
-        done

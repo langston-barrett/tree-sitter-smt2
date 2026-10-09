@@ -3,27 +3,6 @@
 mtime = true
 
 # -------------------------------------
-# c (the hand-written external scanner; the rest of src/ is generated)
-
-[[formatter]]
-name = "clang-format"
-cmd = "clang-format -i --"
-files = ["**/src/scanner.c"]
-configs = [".clang-format"]
-check = "clang-format --dry-run -Werror --"
-
-[[linter]]
-name = "clang-tidy"
-cmd = "script/clang-tidy"
-files = ["**/src/scanner.c"]
-configs = [".clang-tidy", "compile_flags.txt"]
-
-[[linter]]
-name = "cc"
-cmd = "cc -std=c11 -Isrc -fsyntax-only -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror"
-files = ["**/src/scanner.c"]
-
-# -------------------------------------
 # gha
 
 [[linter]]
@@ -61,7 +40,6 @@ fix = "typos --color=always --write-changes --"
 name = "shellcheck"
 cmd = "shellcheck --color=always --shell=bash --"
 files = [
-  "**/script/clang-tidy",
   "**/script/differential",
   "**/script/fetch-corpus",
   "**/script/list-corpus",
