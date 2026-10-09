@@ -1,0 +1,313 @@
+================================================================================
+Declarations
+================================================================================
+
+(set-logic QF_UFLIA)
+(declare-sort U 0)
+(declare-const c U)
+(declare-fun f (U Int) Bool)
+(define-sort Pair (A B) (Array A B))
+(define-fun g ((x Int) (y Int)) Int (+ x y))
+(define-const k Int 5)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (set_logic
+    (symbol))
+  (declare_sort
+    (symbol)
+    (numeral))
+  (declare_const
+    (symbol)
+    (sort
+      (symbol)))
+  (declare_fun
+    (symbol)
+    (sort
+      (symbol))
+    (sort
+      (symbol))
+    (sort
+      (symbol)))
+  (define_sort
+    (symbol)
+    (symbol)
+    (symbol)
+    (sort
+      (symbol)
+      (sort
+        (symbol))
+      (sort
+        (symbol))))
+  (define_fun
+    (symbol)
+    (sorted_var
+      (symbol)
+      (sort
+        (symbol)))
+    (sorted_var
+      (symbol)
+      (sort
+        (symbol)))
+    (sort
+      (symbol))
+    (application
+      (symbol)
+      (symbol)
+      (symbol)))
+  (define_const
+    (symbol)
+    (sort
+      (symbol))
+    (numeral)))
+
+================================================================================
+Recursive definitions
+================================================================================
+
+(define-fun-rec len ((l (List Int))) Int (ite (= l nil) 0 1))
+(define-funs-rec ((ev ((n Int)) Bool) (od ((n Int)) Bool)) ((= n 0) (not (ev n))))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (define_fun_rec
+    (symbol)
+    (sorted_var
+      (symbol)
+      (sort
+        (symbol)
+        (sort
+          (symbol))))
+    (sort
+      (symbol))
+    (application
+      (symbol)
+      (application
+        (symbol)
+        (symbol)
+        (symbol))
+      (numeral)
+      (numeral)))
+  (define_funs_rec
+    (function_declaration
+      (symbol)
+      (sorted_var
+        (symbol)
+        (sort
+          (symbol)))
+      (sort
+        (symbol)))
+    (function_declaration
+      (symbol)
+      (sorted_var
+        (symbol)
+        (sort
+          (symbol)))
+      (sort
+        (symbol)))
+    (application
+      (symbol)
+      (symbol)
+      (numeral))
+    (application
+      (symbol)
+      (application
+        (symbol)
+        (symbol)))))
+
+================================================================================
+Datatypes
+================================================================================
+
+(declare-datatype Color ((red) (green) (blue)))
+(declare-datatypes ((List 1)) ((par (T) ((nil) (cons (head T) (tail (List T)))))))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (declare_datatype
+    (symbol)
+    (datatype
+      (constructor
+        (symbol))
+      (constructor
+        (symbol))
+      (constructor
+        (symbol))))
+  (declare_datatypes
+    (sort_declaration
+      (symbol)
+      (numeral))
+    (datatype
+      (symbol)
+      (constructor
+        (symbol))
+      (constructor
+        (symbol)
+        (selector
+          (symbol)
+          (sort
+            (symbol)))
+        (selector
+          (symbol)
+          (sort
+            (symbol)
+            (sort
+              (symbol))))))))
+
+================================================================================
+Datatypes in the syntax of SMT-LIB 2.5
+================================================================================
+
+(declare-datatypes (T) ((Lst nil (cons (hd T) (tl Lst)))))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (declare_datatypes
+    (symbol)
+    (datatype
+      (symbol)
+      (constructor
+        (symbol))
+      (constructor
+        (symbol)
+        (selector
+          (symbol)
+          (sort
+            (symbol)))
+        (selector
+          (symbol)
+          (sort
+            (symbol)))))))
+
+================================================================================
+Options and info
+================================================================================
+
+(set-option :produce-models true)
+(set-info :status sat)
+(set-info :smt-lib-version 2.6)
+(get-info :reason-unknown)
+(get-option :produce-models)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (set_option
+    (keyword)
+    (symbol))
+  (set_info
+    (keyword)
+    (symbol))
+  (set_info
+    (keyword)
+    (decimal))
+  (get_info
+    (keyword))
+  (get_option
+    (keyword)))
+
+================================================================================
+Queries
+================================================================================
+
+(push 1)
+(check-sat)
+(check-sat-assuming (a (not b)))
+(get-value (x (f x)))
+(get-model)
+(pop)
+(exit)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (push
+    (numeral))
+  (check_sat)
+  (check_sat_assuming
+    (symbol)
+    (application
+      (symbol)
+      (symbol)))
+  (get_value
+    (symbol)
+    (application
+      (symbol)
+      (symbol)))
+  (get_model)
+  (pop)
+  (simple_command))
+
+================================================================================
+Unknown commands
+================================================================================
+
+(declare-heap (Loc Data))
+(get-interpolants (a b) :x)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (command
+    (symbol)
+    (list
+      (symbol)
+      (symbol)))
+  (command
+    (symbol)
+    (list
+      (symbol)
+      (symbol))
+    (keyword)))
+
+================================================================================
+Z3 commands
+================================================================================
+
+(echo "hello ""world""")
+(simplify (+ x 0) :som true)
+(check-sat-using (then simplify smt) :print_model true)
+(minimize x)
+(assert-soft (> x 1) :weight 2 :id goal)
+(help assert)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (echo
+    (string))
+  (term_command
+    (application
+      (symbol)
+      (symbol)
+      (numeral))
+    (attribute
+      (keyword)
+      (symbol)))
+  (tactic_command
+    (list
+      (symbol)
+      (symbol)
+      (symbol))
+    (attribute
+      (keyword)
+      (symbol)))
+  (term_command
+    (symbol))
+  (term_command
+    (application
+      (symbol)
+      (symbol)
+      (numeral))
+    (attribute
+      (keyword)
+      (numeral))
+    (attribute
+      (keyword)
+      (symbol)))
+  (help
+    (symbol)))

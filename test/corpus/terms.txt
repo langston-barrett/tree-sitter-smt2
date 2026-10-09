@@ -1,0 +1,247 @@
+================================================================================
+Constants
+================================================================================
+
+(assert (= x 42 -7 3.14 1. #x0F #b101 "a""b" |quoted symbol|))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert
+    (application
+      (symbol)
+      (symbol)
+      (numeral)
+      (numeral)
+      (decimal)
+      (decimal)
+      (hexadecimal)
+      (binary)
+      (string)
+      (quoted_symbol))))
+
+================================================================================
+Applications
+================================================================================
+
+(assert (and (f x) ((_ extract 3 0) y) ((as const (Array Int Int)) 0)))
+(assert ((f x) y))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert
+    (application
+      (symbol)
+      (application
+        (symbol)
+        (symbol))
+      (application
+        (indexed_identifier
+          (symbol)
+          (numeral)
+          (numeral))
+        (symbol))
+      (application
+        (qualified_identifier
+          (symbol)
+          (sort
+            (symbol)
+            (sort
+              (symbol))
+            (sort
+              (symbol))))
+        (numeral))))
+  (assert
+    (application
+      (application
+        (symbol)
+        (symbol))
+      (symbol))))
+
+================================================================================
+Indexed identifiers
+================================================================================
+
+(assert (= (_ bv5 32) ((_ to_fp 8 24) RNE 1.0) (_ +zero 8 24)))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert
+    (application
+      (symbol)
+      (indexed_identifier
+        (symbol)
+        (numeral))
+      (application
+        (indexed_identifier
+          (symbol)
+          (numeral)
+          (numeral))
+        (symbol)
+        (decimal))
+      (indexed_identifier
+        (symbol)
+        (numeral)
+        (numeral)))))
+
+================================================================================
+Binders
+================================================================================
+
+(assert (let ((a 1) (b 2)) (forall ((x Int) (y Int)) (exists ((z Int)) (= (+ x y) z a b)))))
+(assert ((lambda ((x Int)) (> x 0)) 1))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert
+    (let_term
+      (bindings)
+      (bindings
+        (binding
+          (symbol)
+          (numeral))
+        (binding
+          (symbol)
+          (numeral)))
+      (bindings)
+      (quantified_term
+        (sorted_var
+          (symbol)
+          (sort
+            (symbol)))
+        (sorted_var
+          (symbol)
+          (sort
+            (symbol)))
+        (quantified_term
+          (sorted_var
+            (symbol)
+            (sort
+              (symbol)))
+          (application
+            (symbol)
+            (application
+              (symbol)
+              (symbol)
+              (symbol))
+            (symbol)
+            (symbol)
+            (symbol))))))
+  (assert
+    (application
+      (quantified_term
+        (sorted_var
+          (symbol)
+          (sort
+            (symbol)))
+        (application
+          (symbol)
+          (symbol)
+          (numeral)))
+      (numeral))))
+
+================================================================================
+Annotations
+================================================================================
+
+(assert (! (forall ((x Int)) (! (p x) :pattern ((f x)) :qid q1 :weight 3)) :named a1))
+(assert (! a))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert
+    (annotated_term
+      (quantified_term
+        (sorted_var
+          (symbol)
+          (sort
+            (symbol)))
+        (annotated_term
+          (application
+            (symbol)
+            (symbol))
+          (attribute
+            (keyword)
+            (pattern
+              (application
+                (symbol)
+                (symbol))))
+          (attribute
+            (keyword)
+            (symbol))
+          (attribute
+            (keyword)
+            (numeral))))
+      (attribute
+        (keyword)
+        (symbol))))
+  (assert
+    (annotated_term
+      (symbol))))
+
+================================================================================
+Match
+================================================================================
+
+(assert (match l ((nil 0) ((cons h t) h) (x 1))))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert
+    (match_term
+      (symbol)
+      (match_case
+        (symbol)
+        (numeral))
+      (match_case
+        (constructor_pattern)
+        (constructor_pattern
+          (symbol))
+        (constructor_pattern
+          (symbol)
+          (symbol))
+        (constructor_pattern)
+        (symbol))
+      (match_case
+        (symbol)
+        (numeral)))))
+
+================================================================================
+Comments
+================================================================================
+
+; a comment
+#| a block
+comment |#
+(check-sat) ; trailing
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (comment)
+  (comment)
+  (check_sat)
+  (comment))
+
+================================================================================
+Symbols without whitespace
+================================================================================
+
+(assert(=(f 1a)x))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert
+    (application
+      (symbol)
+      (application
+        (symbol)
+        (numeral)
+        (symbol))
+      (symbol))))

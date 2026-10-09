@@ -1,0 +1,9 @@
+# Repositories whose .smt2 files make up the differential-test corpus: the
+# regression suites of several SMT solvers.
+# Columns: GitHub repository, pinned commit.
+Z3Prover/z3test	a865fb5760b9154650692b3a584ffb4178ce8f23
+cvc5/cvc5	a3f47bdffd29f30f65f886e180f233227cb4b27e
+bitwuzla/bitwuzla	b42d3e1c0f82b45b951813133021aa55ca989ece
+SRI-CSL/yices2	9e5d726aa3261c7960e064250a0da83a6de4011a
+usi-verification-and-security/opensmt	15b42c6f339679a4547d3cc9955547e7ca03505c
+ultimate-pa/smtinterpol	584afedd4889d9c46c1f2ea2d139a8f166d238dc

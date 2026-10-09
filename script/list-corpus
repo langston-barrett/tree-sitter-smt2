@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# List the .smt2 files in the corpus, relative to the corpus directory,
+# excluding files over 256 KiB.  These are benchmarks rather than tests of the
+# parser, and add little coverage but most of the bytes.
+set -euo pipefail
+
+root=$(cd "$(dirname "$0")/.." && pwd)
+cd "${1:-$root/corpus}"
+
+find . -name '*.smt2' \( -type f -o -type l \) -size -257k | LC_ALL=C sort

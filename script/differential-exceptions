@@ -1,0 +1,30 @@
+# Corpus files on which tree-sitter-smt2 knowingly disagrees with Z3's parser.
+# Format: <path relative to corpus/><TAB><reason>
+#
+# After an error, Z3 skips the rest of the command, which hides any syntax
+# errors there.  In these files, Z3 reports a semantic error (e.g., an unknown
+# sort) before a syntax error in the same command.  cvc5's set.comprehension
+# binds variables, which Z3 parses as an application without arguments, e.g.,
+# ((x Int)).
+./cvc5_cvc5/test/regress/cli/regress0/datatypes/issue12572-nullable-lift-no-arguments.smt2	Z3 reports a semantic error first; also ((_ nullable.lift f)) has no arguments
+./cvc5_cvc5/test/regress/cli/regress0/fp/fp-set-comprehension-basic.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress0/fp/proj-issue477-fp-set-comprehension.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress0/fp/proj-issue509-fp-set-comprehension.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress0/parser/issue10156-bad-tester.smt2	Z3 reports a semantic error first; also ((_ is c)) has no arguments
+./cvc5_cvc5/test/regress/cli/regress0/parser/issue9651.smt2	Z3 reports a semantic error first; also a let binding has no value
+./cvc5_cvc5/test/regress/cli/regress0/seq/proj-issue604-reg-closure.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress0/sets/comp-qf-error.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/arrayinuf_error.smt2	Z3 reports a semantic error first; also declare-fun has no range
+./cvc5_cvc5/test/regress/cli/regress1/proj-issue619-nconst-nl-mv.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/quantifiers/proj-issue532-set-comp-fv-trigger.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/quantifiers/proj-issue564.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/sets/comp-intersect.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/sets/comp-odd.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/sets/comp-pos-member.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/sets/comp-positive.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./cvc5_cvc5/test/regress/cli/regress1/sets/set-comp-sat.smt2	Z3 reports a semantic error first; also (set.comprehension ((x S)) ...) applies (x S) to no arguments
+./usi-verification-and-security_opensmt/test/regression/base/generic/define-fun.smt2	Z3 reports a semantic error first; also the range sort starts with an indexed identifier
+
+# Other disagreements.
+./cvc5_cvc5/test/regress/cli/regress0/parser/issue9990-nprint-char.smt2	A string contains a NUL character, which tree-sitter cannot lex
+./cvc5_cvc5/test/regress/cli/regress0/quantifiers/ufnia-fv-delta.smt2	Z3 accepts :pattern (c) if c is a constant, but not if c is a variable, as here
